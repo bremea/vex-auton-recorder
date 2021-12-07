@@ -113,10 +113,10 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.spin(forward);
       }
       // check the ButtonL1/ButtonL2 status to control Motor11
-      if (Controller1.ButtonL1.pressing()) {
+      if (bL1) {
         Motor7.spin(forward);
         Controller1LeftShoulderControlMotorsStopped = false;
-      } else if (Controller1.ButtonL2.pressing()) {
+      } else if (bL2) {
         Motor7.spin(reverse);
         Controller1LeftShoulderControlMotorsStopped = false;
       } else if (!Controller1LeftShoulderControlMotorsStopped) {
@@ -126,10 +126,10 @@ int rc_auto_loop_function_Controller1() {
         Controller1LeftShoulderControlMotorsStopped = true;
       }
       // check the ButtonR1/ButtonR2 status to control Motor8
-      if (Controller1.ButtonR1.pressing()) {
+      if (bR1) {
         Motor8.spin(forward);
         Controller1RightShoulderControlMotorsStopped = false;
-      } else if (Controller1.ButtonR2.pressing()) {
+      } else if (bR2) {
         Motor8.spin(reverse);
         Controller1RightShoulderControlMotorsStopped = false;
       } else if (!Controller1RightShoulderControlMotorsStopped) {
