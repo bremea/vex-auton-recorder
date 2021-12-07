@@ -47,20 +47,22 @@ int rc_auto_loop_function_Controller1() {
   while (true) {
     int ax1 = Controller1.Axis3.position();
     int ax3 = Controller1.Axis3.position();
+    bool bL1 = Controller1.ButtonL1.pressing();
+    bool bL2 = Controller1.ButtonL2.pressing();
+    bool bR1 = Controller1.ButtonR1.pressing();
+    bool bR2 = Controller1.ButtonR2.pressing();
 
     if (!recording) {
-      Brain.Screen.clearLine();
-      Brain.Screen.print(rBuff[pos] - 100);
       ax1 = rBuff[pos] - 100;
       pos++;
       ax3 = rBuff[pos] - 100;
       pos++;
     } else {
-      ffs += (char)(ax1+100);
-      ffs += (char)(ax3+100);
-      Brain.SDcard.appendfile("auton", reinterpret_cast<uint8_t *>(&ffs[0]),
-                              ffs.length());
+      ffs += (char)(ax1 + 100);
+      ffs += (char)(ax3 + 100);
     }
+    Brain.SDcard.appendfile("auton", reinterpret_cast<uint8_t *>(&ffs[0]),
+                            ffs.length());
     ffs = "";
 
     if (RemoteControlCodeEnabled) {
@@ -138,7 +140,7 @@ int rc_auto_loop_function_Controller1() {
       }
     }
     // wait before repeating the process
-    wait(20, msec);
+    wait(recording ? 20 : 30, msec);
   }
   return 0;
 }
